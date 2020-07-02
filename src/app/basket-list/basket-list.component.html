@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>ФИО</mat-label>
+      <input matInput placeholder="Иванов Иван Иванович" formControlName="nameCustomer" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Телефон</mat-label>
+      <input matInput placeholder="+7(999)000-00-00" formControlName="phoneNumberCustomer" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="pat@example.com" formControlName="emailCustomer" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Адрес доставки</mat-label>
+      <input matInput placeholder="г.Москва ул.Хорошая д7 кв 1" formControlName="addressCustomer" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Комментарии к заказу</mat-label>
+      <input matInput formControlName="commentOnOrder">
+    </mat-form-field>
+  </div>
+  <button
+    type="submit"
+    mat-button color="primary"
+  >Отправить заказ</button>
+</form>
+<pre>
+  {{customer | json}}
+</pre>
+
