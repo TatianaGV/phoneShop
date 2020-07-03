@@ -1,15 +1,8 @@
 <div class="products">
   <div class="product-wrapper">
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
-    <app-product-item></app-product-item>
+    <app-product-item *ngFor="let item of items | async"
+                      [item]="item">
+    </app-product-item>
   </div>
 </div>
+

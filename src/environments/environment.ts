@@ -4,8 +4,14 @@
 
 export const environment = {
   production: false,
-  apiKey: 'AIzaSyAcGRgwnHm4noCgJSRnQiDqDbh6tgkhRfY',
-  fbDbUrl: 'https://phoneshop-fa113.firebaseio.com',
+  firebase: {
+    apiKey: 'AIzaSyAcGRgwnHm4noCgJSRnQiDqDbh6tgkhRfY',
+    authDomain: 'phoneshop-fa113.firebaseapp.com',
+    databaseURL: 'https://phoneshop-fa113.firebaseio.com',
+    projectId: 'phoneshop-fa113',
+    storageBucket: 'phoneshop-fa113.appspot.com',
+    messagingSenderId: '459579971526',
+  },
 };
 
 /*

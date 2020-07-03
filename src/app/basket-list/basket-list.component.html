@@ -1,5 +1,13 @@
+<div class="basket-container">
+  <app-basket-product-item *ngFor="let item of items | async"
+                    [item]="item">
+  </app-basket-product-item>
+</div>
+
+<h1>Оформление заказа</h1>
+
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <div class="basket-container">
+  <div class="form-container">
     <mat-form-field appearance="fill">
       <mat-label>ФИО</mat-label>
       <input matInput placeholder="Иванов Иван Иванович" formControlName="nameCustomer" required>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { ICustomer } from '../interfaces/interface-customer';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-basket-list',
@@ -14,7 +16,12 @@ export class BasketListComponent implements OnInit {
   public customer: ICustomer;
   public numberPattern = '^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$';
 
-  constructor() { }
+  @Input()
+  public items: Observable<any []>;
+
+  constructor(firestore: AngularFirestore) {
+    this.items = firestore.collection('basketItems').valueChanges();
+  }
 
   public ngOnInit(): void {
     this.form = new FormGroup({

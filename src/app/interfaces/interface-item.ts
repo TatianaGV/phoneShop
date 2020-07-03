@@ -1,5 +1,6 @@
 export interface IProductItem {
-  view: string;
-  name: string;
+  photo: string;
+  model: string;
   price: number;
+  count?: number;
 }

@@ -1,1 +1,5 @@
-<p>wish-list works!</p>
+<div class="wish-container">
+  <app-product-item *ngFor="let item of items | async"
+                    [item]="item">
+  </app-product-item>
+</div>

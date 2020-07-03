@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "phoneshop-fa113": {
+      "hosting": {
+        "phoneShop": [
+          "phoneshop-fa113"
+        ]
+      }
+    }
+  }
+}
