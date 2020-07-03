@@ -1,12 +1,14 @@
 <div class="card-item">
-  <img class="img-phone" [src]="phoneImg" alt="no phone">
+  <img class="img-phone" [src]="productItem.view" alt="no phone">
   <div class="info-item">
-      <div>Apple iPhone 20</div>
-      <div>100 000 руб</div>
+      <div>{{productItem.name}}</div>
+      <div>{{productItem.price}} руб</div>
   </div>
-  <button mat-button color="primary">В корзину</button>
-  <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">favorite</mat-icon>
-  </button>
+  <div class="active">
+    <button mat-button color="primary">В корзину</button>
+    <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">favorite</mat-icon>
+    </button>
+  </div>
 </div>
 

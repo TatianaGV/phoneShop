@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  public wishList: string = 'assets/icons/wish-list.svg';
-  public basket: string = 'assets/icons/basket.svg';
+
 
 }

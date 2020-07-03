@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { IProductItem } from '../interfaces/interface-item';
 
 @Component({
   selector: 'app-product-item',
@@ -7,13 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductItemComponent implements OnInit {
 
-  public wishList: string = 'assets/icons/wish-list.svg';
-  public basket: string = 'assets/icons/basket.svg';
-  public phoneImg: string = 'assets/pic/iphone.jpg';
+  @Input()
+  public productItem: IProductItem;
 
   constructor() { }
 
   public ngOnInit(): void {
+    this.productItem = {
+      view: 'assets/pic/iphone.jpg',
+      name: 'Iphone 20',
+      price: 110000,
+    };
   }
 
 }

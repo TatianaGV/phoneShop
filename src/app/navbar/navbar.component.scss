@@ -1,0 +1,17 @@
+.info {
+  display: flex;
+  align-items: center;
+
+  .img-header {
+    margin-right: 10px;
+  }
+
+  .info-buying{
+    display: inline-block;
+  }
+
+  .img-custom{
+    width: 32px;
+    height: 32px;
+  }
+}

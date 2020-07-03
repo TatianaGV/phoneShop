@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { Customer } from '../interface';
+import { ICustomer } from '../interfaces/interface-customer';
 
 @Component({
   selector: 'app-basket-list',
@@ -11,7 +11,8 @@ import { Customer } from '../interface';
 export class BasketListComponent implements OnInit {
 
   public form: FormGroup;
-  public customer: Customer;
+  public customer: ICustomer;
+  public numberPattern = '^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$';
 
   constructor() { }
 
@@ -22,6 +23,7 @@ export class BasketListComponent implements OnInit {
       ]),
       phoneNumberCustomer: new FormControl(null, [
         Validators.required,
+        Validators.pattern(this.numberPattern),
       ]),
       emailCustomer: new FormControl(null, [
         Validators.required,
@@ -36,7 +38,11 @@ export class BasketListComponent implements OnInit {
     });
   }
 
-  public submit() {
+  public submit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     this.customer = {
       nameCustomer: this.form.value.nameCustomer,
       phoneNumberCustomer: this.form.value.phoneNumberCustomer,
