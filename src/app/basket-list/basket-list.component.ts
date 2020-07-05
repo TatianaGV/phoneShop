@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import { Observable } from 'rxjs';
 
 import { ICustomer } from '../interfaces/interface-customer';
-import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-basket-list',
@@ -24,6 +25,24 @@ export class BasketListComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.initFrom();
+  }
+
+  public submit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.customer = {
+      nameCustomer: this.form.value.nameCustomer,
+      phoneNumberCustomer: this.form.value.phoneNumberCustomer,
+      emailCustomer: this.form.value.emailCustomer,
+      addressCustomer: this.form.value.addressCustomer,
+      commentOnOrder: this.form.value.commentOnOrder,
+    };
+  }
+
+  public initFrom(): void {
     this.form = new FormGroup({
       nameCustomer: new FormControl(null, [
         Validators.required,
@@ -43,20 +62,6 @@ export class BasketListComponent implements OnInit {
         Validators.required,
       ]),
     });
-  }
-
-  public submit(): void {
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.customer = {
-      nameCustomer: this.form.value.nameCustomer,
-      phoneNumberCustomer: this.form.value.phoneNumberCustomer,
-      emailCustomer: this.form.value.emailCustomer,
-      addressCustomer: this.form.value.addressCustomer,
-      commentOnOrder: this.form.value.commentOnOrder,
-    };
   }
 
 }
