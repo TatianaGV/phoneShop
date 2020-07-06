@@ -1,0 +1,23 @@
+.modal-container {
+
+  h2{
+    text-align: center;
+  }
+
+  .cart-container{
+    display: flex;
+    align-items: center;
+
+    .img-phone {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+    }
+
+    .item {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+  }
+}

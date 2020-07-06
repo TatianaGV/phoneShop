@@ -3,8 +3,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
 
-import { IProductItem } from '../interfaces/interface-item';
-
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',

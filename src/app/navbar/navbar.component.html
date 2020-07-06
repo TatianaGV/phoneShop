@@ -8,12 +8,12 @@
   <div class="info">
     <div class="img-header"
          [routerLink]="['/wish']">
-      <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">favorite</mat-icon>
+      <button mat-icon-button>
+        <mat-icon aria-hidden="false" color="primary">favorite</mat-icon>
       </button>
     </div>
     <div class="info-wish-list">
-      <label>2 товара</label>
+      <label>{{ countItemInWishList }} товара</label>
     </div>
     <div class="img-header">
       <a href="#" [routerLink]="['basket']">
@@ -22,10 +22,10 @@
     </div>
     <div class="info-buying">
       <div class="info-basket">
-        <label>В корзине: 5 товаров</label>
+        <label>В корзине: {{ countItemInCart }} товара</label>
       </div>
       <div class="info-total">
-        <label>На сумму: 37428.73 руб</label>
+        <label>На сумму: {{ totalPrice }} руб</label>
       </div>
     </div>
   </div>

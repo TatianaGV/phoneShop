@@ -3,4 +3,5 @@ export interface IProductItem {
   model: string;
   price: number;
   count?: number;
+  isFavorite?: boolean;
 }

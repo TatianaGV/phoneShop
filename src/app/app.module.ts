@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 
@@ -13,8 +13,6 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-import { environment } from '../environments/environment';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './products-list/products-list.component';
@@ -24,6 +22,9 @@ import { MailLayoutComponent } from './mail-layout/mail-layout.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BasketProductItemComponent } from './basket-product-item/basket-product-item.component';
+import { CoreModule } from './core/core/core.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalViewComponent } from './modal-view/modal-view.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { BasketProductItemComponent } from './basket-product-item/basket-product
     ProductItemComponent,
     NavbarComponent,
     BasketProductItemComponent,
+    ModalViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,10 +48,12 @@ import { BasketProductItemComponent } from './basket-product-item/basket-product
     MatSelectModule,
     MatOptionModule,
     MatInputModule,
+    MatDialogModule,
     ReactiveFormsModule,
     MatGridListModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    CoreModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
