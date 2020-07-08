@@ -1,5 +1,6 @@
 <div class="basket-container">
-  <app-basket-product-item *ngFor="let item of items | async"
+  <h1>Корзина</h1>
+  <app-basket-product-item *ngFor="let item of items"
                     [item]="item">
   </app-basket-product-item>
 </div>

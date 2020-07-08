@@ -1,31 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/firestore';
-
-import { Observable } from 'rxjs';
 
 import { ICustomer } from '../interfaces/interface-customer';
+import { CartService } from '../services/cart.service';
+import { ProductService } from '../services/product.service';
+import { IProductItem } from '../interfaces/interface-item';
 
 @Component({
   selector: 'app-basket-list',
   templateUrl: './basket-list.component.html',
   styleUrls: ['./basket-list.component.scss'],
 })
+
 export class BasketListComponent implements OnInit {
 
   public form: FormGroup;
   public customer: ICustomer;
   public numberPattern = '^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$';
+  public items: IProductItem[] = [];
+  public itemsCartId: string[] = [];
 
-  @Input()
-  public items: Observable<any []>;
-
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('basketItems').valueChanges();
-  }
+  constructor(private _pService: ProductService,
+              private _cService: CartService) {}
 
   public ngOnInit(): void {
     this.initFrom();
+    this.initCart();
   }
 
   public submit(): void {
@@ -62,6 +62,17 @@ export class BasketListComponent implements OnInit {
         Validators.required,
       ]),
     });
+  }
+
+  public initCart(): void {
+    this._pService
+      .getItems()
+      .subscribe((items) => {
+        this.itemsCartId = this._cService.getItemId();
+        this.items = items.filter((item) => {
+          return this.itemsCartId.indexOf(item.id) > -1;
+        });
+      });
   }
 
 }

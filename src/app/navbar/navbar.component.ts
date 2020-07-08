@@ -1,6 +1,8 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 
 import { DataBaseService } from '../services/data-base.service';
+import { FavoriteService } from '../services/favorite.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,18 +16,17 @@ export class NavbarComponent implements OnInit, DoCheck {
   public countItemInWishList: number;
   public basket: string = 'assets/icons/basket.svg';
 
-  constructor(private service: DataBaseService) { }
+  constructor(private _fService: FavoriteService,
+              private _cService: CartService) { }
 
   public ngOnInit(): void {
-    this.countItemInCart = this.service.getCountItemsFromCart();
-    this.totalPrice = this.service.getTotalPriceFromCart();
-    this.countItemInWishList = this.service.getCountItemsFromWishList();
+    this.countItemInWishList = this._fService.getCountItemsFromWishList();
+    this.countItemInCart = this._cService.getCountItemsFromCart();
   }
 
   public ngDoCheck(): void {
-    this.countItemInCart = this.service.getCountItemsFromCart();
-    this.totalPrice = this.service.getTotalPriceFromCart();
-    this.countItemInWishList = this.service.getCountItemsFromWishList();
+    this.countItemInWishList = this._fService.getCountItemsFromWishList();
+    this.countItemInCart = this._cService.getCountItemsFromCart();
   }
 
 }

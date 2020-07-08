@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { IProductItem } from '../interfaces/interface-item';
+import { ProductService } from '../services/product.service';
+import { FavoriteService } from '../services/favorite.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -10,14 +11,26 @@ import { Observable } from 'rxjs';
 })
 export class WishListComponent implements OnInit {
 
-  @Input()
-  public items: Observable<any []>;
+  public items: IProductItem[] = [];
+  public itemsFavoriteId: string[] = [];
 
-  constructor(firestore: AngularFirestore) {
-    this.items = firestore.collection('wishItems').valueChanges();
-  }
+  constructor(private _pService: ProductService,
+              private _fService: FavoriteService) {}
 
   public ngOnInit(): void {
+    this.initWishList();
   }
+
+  public initWishList(): void {
+    this._pService
+      .getItems()
+      .subscribe((items) => {
+        this.itemsFavoriteId = this._fService.getItemId();
+        this.items = items.filter((item) => {
+          return this.itemsFavoriteId.indexOf(item.id) > -1;
+        });
+      });
+  }
+
 
 }
