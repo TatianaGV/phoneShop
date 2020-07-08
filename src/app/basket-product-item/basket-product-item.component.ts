@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { IProductItem } from '../interfaces/interface-item';
 import { CartService } from '../services/cart.service';
 
@@ -12,12 +13,15 @@ export class BasketProductItemComponent implements OnInit {
   @Input()
   public item: IProductItem;
 
+  @Output()
+  public itemRemove = new EventEmitter();
+
   constructor(private _cService: CartService) { }
 
   public ngOnInit(): void {}
 
   public removeItem(): void {
-    this._cService.deleteItem(this.item.id);
+    this.itemRemove.emit(this.item.id);
   }
 
 

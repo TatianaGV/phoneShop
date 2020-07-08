@@ -5,6 +5,7 @@ import { IProductItem } from '../interfaces/interface-item';
 
 
 @Injectable({ providedIn: 'root' })
+
 export class DataBaseService {
 
   public itemsCart: IProductItem[] = [];

@@ -75,4 +75,8 @@ export class BasketListComponent implements OnInit {
       });
   }
 
+  public removeItem(id: string): void {
+    this._cService.deleteItem(id);
+  }
+
 }

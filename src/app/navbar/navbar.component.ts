@@ -22,11 +22,13 @@ export class NavbarComponent implements OnInit, DoCheck {
   public ngOnInit(): void {
     this.countItemInWishList = this._fService.getCountItemsFromWishList();
     this.countItemInCart = this._cService.getCountItemsFromCart();
+    this.totalPrice = this._cService.getTotalPriceFromCart();
   }
 
   public ngDoCheck(): void {
     this.countItemInWishList = this._fService.getCountItemsFromWishList();
     this.countItemInCart = this._cService.getCountItemsFromCart();
+    this.totalPrice = this._cService.getTotalPriceFromCart();
   }
 
 }

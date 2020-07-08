@@ -1,7 +1,8 @@
 <div class="basket-container">
   <h1>Корзина</h1>
   <app-basket-product-item *ngFor="let item of items"
-                    [item]="item">
+                           [item]="item"
+                           (itemRemove)="removeItem($event)">
   </app-basket-product-item>
 </div>
 
