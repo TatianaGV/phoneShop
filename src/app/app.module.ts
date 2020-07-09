@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AngularFireModule } from '@angular/fire';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,7 +17,6 @@ import { AppComponent } from './app.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { BasketListComponent } from './basket-list/basket-list.component';
-import { MailLayoutComponent } from './mail-layout/mail-layout.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BasketProductItemComponent } from './basket-product-item/basket-product-item.component';
@@ -32,7 +30,6 @@ import { ModalViewComponent } from './modal-view/modal-view.component';
     ProductsListComponent,
     WishListComponent,
     BasketListComponent,
-    MailLayoutComponent,
     ProductItemComponent,
     NavbarComponent,
     BasketProductItemComponent,

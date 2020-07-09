@@ -1,6 +1,9 @@
 <h1>Список Желаний</h1>
 <div class="wish-container">
-  <app-product-item *ngFor="let item of items"
-                    [item]="item">
-  </app-product-item>
+  <ng-container *ngFor="let item of _fService.favoriteItems">
+    <app-product-item
+      [item]="item">
+    </app-product-item>
+  </ng-container>
 </div>
+

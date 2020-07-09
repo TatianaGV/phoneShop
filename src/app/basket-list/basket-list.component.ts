@@ -17,15 +17,12 @@ export class BasketListComponent implements OnInit {
   public form: FormGroup;
   public customer: ICustomer;
   public numberPattern = '^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$';
-  public items: IProductItem[] = [];
-  public itemsCartId: string[] = [];
 
   constructor(private _pService: ProductService,
-              private _cService: CartService) {}
+              public _cService: CartService) {}
 
   public ngOnInit(): void {
     this.initFrom();
-    this.initCart();
   }
 
   public submit(): void {
@@ -62,17 +59,6 @@ export class BasketListComponent implements OnInit {
         Validators.required,
       ]),
     });
-  }
-
-  public initCart(): void {
-    this._pService
-      .getItems()
-      .subscribe((items) => {
-        this.itemsCartId = this._cService.getItemId();
-        this.items = items.filter((item) => {
-          return this.itemsCartId.indexOf(item.id) > -1;
-        });
-      });
   }
 
   public removeItem(id: string): void {

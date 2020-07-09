@@ -7,6 +7,7 @@ import { IProductItem } from '../interfaces/interface-item';
 import { ModalViewComponent } from '../modal-view/modal-view.component';
 import { FavoriteService } from '../services/favorite.service';
 import { CartService } from '../services/cart.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-item',
@@ -21,7 +22,8 @@ export class ProductItemComponent implements OnInit, OnDestroy {
 
   constructor(public dialog: MatDialog,
               private _fb: AngularFirestore,
-              private _fService: FavoriteService) { }
+              private _fService: FavoriteService,
+              private _pService: ProductService) { }
 
   public ngOnInit(): void {
   }
@@ -41,7 +43,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   public addToFavorite(): void {
     this.item.isFavorite = !this.item.isFavorite;
     if (this.item.isFavorite) {
-      this._fService.pushItem(this.item.id);
+      this._fService.pushItem(this.item);
     } else {
       this._fService.deleteItem(this.item.id);
     }

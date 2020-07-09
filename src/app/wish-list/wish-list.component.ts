@@ -11,26 +11,9 @@ import { FavoriteService } from '../services/favorite.service';
 })
 export class WishListComponent implements OnInit {
 
-  public items: IProductItem[] = [];
-  public itemsFavoriteId: string[] = [];
-
-  constructor(private _pService: ProductService,
-              private _fService: FavoriteService) {}
+  constructor(public _fService: FavoriteService) {}
 
   public ngOnInit(): void {
-    this.initWishList();
   }
-
-  public initWishList(): void {
-    this._pService
-      .getItems()
-      .subscribe((items) => {
-        this.itemsFavoriteId = this._fService.getItemId();
-        this.items = items.filter((item) => {
-          return this.itemsFavoriteId.indexOf(item.id) > -1;
-        });
-      });
-  }
-
 
 }

@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Observable, forkJoin } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
+
+import { IProductItem } from '../interfaces/interface-item';
 
 import { ProductService } from './product.service';
-import { IProductItem } from '../interfaces/interface-item';
 
 
 export interface IOrder {
@@ -20,7 +21,7 @@ export interface IOrder {
 export class CartService {
 
   public obsItems: Observable<IProductItem>[] = [];
-  public cartItemsID: string[] = [];
+  public cartItemsIds: string[] = [];
   public cartItems: IProductItem[] = [];
 
   constructor(private _pService: ProductService,
@@ -30,25 +31,25 @@ export class CartService {
     this._joinCartItems();
   }
 
-  public pushItem(itemId: string): void {
-    this.cartItemsID.push(itemId);
+  public pushItem(item: IProductItem): void {
+    this.cartItemsIds.push(item.id);
+    this.cartItems.push(item);
     // const orderItem = { id: itemId, count: countItem };
-    localStorage.setItem('cart', JSON.stringify(this.cartItemsID));
-    console.log(this.cartItemsID);
+    localStorage.setItem('cart', JSON.stringify(this.cartItemsIds));
+    console.log(this.cartItemsIds);
   }
 
   public deleteItem(itemId: string): void {
-    this.cartItemsID = this.cartItemsID.filter((item) => item !== itemId);
-    localStorage.setItem('cart', JSON.stringify(this.cartItemsID));
-    console.log(this.cartItemsID);
-  }
-
-  public getItemId(): string[] {
-    return this.cartItemsID;
+    const index = this.cartItemsIds.indexOf(itemId);
+    console.log(index);
+    this.cartItemsIds.splice(index, 1);
+    this.cartItems.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(this.cartItemsIds));
+    console.log(this.cartItemsIds);
   }
 
   public getCountItemsFromCart(): number {
-    return this.cartItemsID.length;
+    return this.cartItemsIds.length;
   }
 
   public getTotalPriceFromCart(): number {
@@ -58,18 +59,21 @@ export class CartService {
   }
 
   private _getInfoCart(): void {
-    this.cartItemsID = JSON.parse(localStorage.getItem('cart')) || [];
+    this.cartItemsIds = JSON.parse(localStorage.getItem('cart')) || [];
   }
 
   private _getCartItems(): void {
-    if (this.cartItemsID) {
-      this.cartItemsID.forEach((item) => {
+    if (this.cartItemsIds) {
+      this.cartItemsIds.forEach((id) => {
         const query = this.firestore
           .collection('items')
-          .doc<IProductItem>(item)
+          .doc<IProductItem>(id)
           .snapshotChanges()
           .pipe(
             map((res) => res.payload.data()),
+            tap((res) => {
+              res.id = id;
+            }),
             take(1),
           );
 
@@ -80,6 +84,15 @@ export class CartService {
 
   private _joinCartItems(): void {
     forkJoin(this.obsItems)
+      .pipe(
+        map((items) => {
+          return items.map((item) => {
+            console.log(item);
+
+            return item;
+          });
+        }),
+      )
       .subscribe((item) => {
         this.cartItems.push(...item);
       });

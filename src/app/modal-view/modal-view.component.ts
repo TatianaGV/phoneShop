@@ -26,6 +26,7 @@ export class ModalViewComponent implements OnInit {
               private _cService: CartService,
               private _fService: FavoriteService) {
     this.item = data.item;
+    this.item.count = 1;
   }
 
   public ngOnInit(): void {
@@ -38,13 +39,14 @@ export class ModalViewComponent implements OnInit {
   public addItemToCart(): void {
     this.item.isCard = !this.item.isCard;
     if (this.item.isCard) {
-      this._cService.pushItem(this.item.id);
+      this._cService.pushItem(this.item);
       if (this.item.isFavorite) {
         this._fService.deleteItem(this.item.id);
       }
     } else {
       this._cService.deleteItem(this.item.id);
     }
+
     this.dialogRef.close();
   }
 

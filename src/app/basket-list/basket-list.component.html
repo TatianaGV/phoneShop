@@ -1,9 +1,12 @@
 <div class="basket-container">
   <h1>Корзина</h1>
-  <app-basket-product-item *ngFor="let item of items"
-                           [item]="item"
-                           (itemRemove)="removeItem($event)">
-  </app-basket-product-item>
+  <ng-container *ngFor="let item of _cService.cartItems">
+    <app-basket-product-item
+      [item]="item"
+      (itemRemove)="removeItem($event)">
+    </app-basket-product-item>
+  </ng-container>
+
 </div>
 
 <h1>Оформление заказа</h1>

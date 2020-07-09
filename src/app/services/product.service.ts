@@ -12,10 +12,13 @@ import { IProductItem } from '../interfaces/interface-item';
 })
 export class ProductService {
 
-  private items: Observable<IProductItem []>;
+  public items: Observable<IProductItem []>;
 
   constructor(private firestore: AngularFirestore) {
     this.init();
+    this.items.subscribe((item) => {
+      console.log(item);
+    });
   }
 
   public init(): void {
@@ -33,10 +36,6 @@ export class ProductService {
           return this.makeCartItems(resp);
         }),
       );
-  }
-
-  public getItems(): Observable<IProductItem []> {
-    return this.items;
   }
 
   public makeResponse(response: DocumentChangeAction<IProductItem>[]): IProductItem[] {
