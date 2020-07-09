@@ -8,6 +8,8 @@ import { ModalViewComponent } from '../modal-view/modal-view.component';
 import { FavoriteService } from '../services/favorite.service';
 import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-item',
@@ -19,6 +21,9 @@ export class ProductItemComponent implements OnInit, OnDestroy {
 
   @Input()
   public item: IProductItem;
+
+  private destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
+
 
   constructor(public dialog: MatDialog,
               private _fb: AngularFirestore,
@@ -34,10 +39,9 @@ export class ProductItemComponent implements OnInit, OnDestroy {
       data: { item: this.item },
     });
 
-    // takeUntil
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+    dialogRef.afterClosed().pipe(
+      takeUntil(this.destroy),
+    ).subscribe();
   }
 
   public addToFavorite(): void {
@@ -49,6 +53,10 @@ export class ProductItemComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy(): void {}
+  public ngOnDestroy(): void {
+    this.destroy.next(null);
+    this.destroy.complete();
+  }
+
 
 }

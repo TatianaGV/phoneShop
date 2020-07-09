@@ -16,9 +16,6 @@ export class ProductService {
 
   constructor(private firestore: AngularFirestore) {
     this.init();
-    this.items.subscribe((item) => {
-      console.log(item);
-    });
   }
 
   public init(): void {

@@ -1,6 +1,5 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 
-import { DataBaseService } from '../services/data-base.service';
 import { FavoriteService } from '../services/favorite.service';
 import { CartService } from '../services/cart.service';
 

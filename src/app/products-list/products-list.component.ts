@@ -11,7 +11,6 @@ export class ProductsListComponent implements OnInit {
 
   constructor(public _pService: ProductService) {}
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
 }
