@@ -1,0 +1,5 @@
+<div class="counter-control">
+  <button (click)="decreaseValue()" class="btn-decrease" [disabled]="value <= 1">&minus;</button>
+  <input [(ngModel)]="value" class="control-value"/>
+  <button (click)="increaseValue()" class="btn-increase">+</button>
+</div>

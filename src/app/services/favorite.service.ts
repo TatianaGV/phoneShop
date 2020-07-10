@@ -7,6 +7,7 @@ import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { IProductItem } from '../interfaces/interface-item';
 
 import { ProductService } from './product.service';
+import { CommonService } from './common.service';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class FavoriteService implements OnDestroy {
   constructor(
     private _ProductService: ProductService,
     private _fb: AngularFirestore,
+    private _CommonService: CommonService,
   ) {
     this._getFavoriteDataFromCash();
     this._loadFavoriteItems();
@@ -58,26 +60,11 @@ export class FavoriteService implements OnDestroy {
   }
 
   private _getFavoriteDataFromCash(): void {
-    this.favoriteItemsIds = JSON.parse(localStorage.getItem('favorite')) || [];
+    this.favoriteItemsIds = this._CommonService.getDataFromCash('favorite');
   }
 
   private _loadFavoriteItems(): void {
-    if (this.favoriteItemsIds) {
-      this.favoriteItemsIds.forEach((id) => {
-        const query = this._fb
-          .collection('items')
-          .doc<IProductItem>(id)
-          .snapshotChanges()
-          .pipe(
-            map((res) => res.payload.data()),
-            tap((res) => {
-              res.id = id;
-            }),
-            take(1),
-          );
-        this.items$.push(query);
-      });
-    }
+    this.items$ = this._CommonService.loadDataFromDb(this.favoriteItemsIds);
   }
 
   private _joinFavoriteItems(): void {

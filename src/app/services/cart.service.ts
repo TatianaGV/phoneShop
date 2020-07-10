@@ -7,6 +7,7 @@ import { map, take, tap, takeUntil } from 'rxjs/operators';
 import { IProductItem } from '../interfaces/interface-item';
 
 import { ProductService } from './product.service';
+import { CommonService } from './common.service';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class CartService implements OnDestroy {
   constructor(
     private _ProductService: ProductService,
     private _fb: AngularFirestore,
+    private _CommonService: CommonService,
   ) {
     this._getCartDataFromCash();
     this._loadCartItems();
@@ -64,27 +66,11 @@ export class CartService implements OnDestroy {
   }
 
   private _getCartDataFromCash(): void {
-    this.cartItemsIds = JSON.parse(localStorage.getItem('cart')) || [];
+    this.cartItemsIds = this._CommonService.getDataFromCash('cart');
   }
 
   private _loadCartItems(): void {
-    if (this.cartItemsIds) {
-      this.cartItemsIds.forEach((id) => {
-        const query = this._fb
-          .collection('items')
-          .doc<IProductItem>(id)
-          .snapshotChanges()
-          .pipe(
-            map((res) => res.payload.data()),
-            tap((res) => {
-              res.id = id;
-            }),
-            take(1),
-          );
-
-        this.items$.push(query);
-      });
-    }
+    this.items$ = this._CommonService.loadDataFromDb(this.cartItemsIds);
   }
 
   private _joinCartItems(): void {

@@ -57,20 +57,4 @@ export class ProductService {
     return resp;
   }
 
-  public makeCartItems(resp: IProductItem[]): IProductItem[] {
-    resp.forEach((item) => {
-      const itemsIdCart = localStorage.getItem('cart');
-      const cart = JSON.parse(itemsIdCart);
-      if (cart) {
-        cart.forEach((id) => {
-          if (item.id === id) {
-            item.isCard = true;
-          }
-        });
-      }
-    });
-
-    return resp;
-  }
-
 }

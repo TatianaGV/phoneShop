@@ -1,0 +1,26 @@
+.counter-control{
+  display: flex;
+
+  .btn-decrease{
+    width: 25px;
+    height: 25px;
+    background-color: #1bcc76;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .btn-increase{
+    width: 25px;
+    height: 25px;
+    background-color: #1bcc76;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .control-value{
+    width: 30px;
+    margin-right: 2px;
+    margin-left: 2px;
+    text-align: center;
+  }
+}

@@ -4,7 +4,7 @@
     <div>{{item.model}}</div>
     <div>{{item.price}} руб</div>
   </div>
-  <input type="number" class="item-count" [(ngModel)]="item.count">
+  <app-control-access [(ngModel)]="item.count"></app-control-access>
   <div class="active">
     <button mat-button color="primary" (click)="removeItem()">Удалить</button>
   </div>

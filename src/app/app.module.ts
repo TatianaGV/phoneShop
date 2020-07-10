@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,8 +22,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BasketProductItemComponent } from './basket-product-item/basket-product-item.component';
 import { CoreModule } from './core/core/core.module';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ModalViewComponent } from './modal-view/modal-view.component';
+import { CounterControlComponent } from './control-access/counter-control.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ModalViewComponent } from './modal-view/modal-view.component';
     NavbarComponent,
     BasketProductItemComponent,
     ModalViewComponent,
+    CounterControlComponent,
   ],
   imports: [
     BrowserModule,
