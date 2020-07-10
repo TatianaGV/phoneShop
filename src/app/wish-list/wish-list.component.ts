@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { IProductItem } from '../interfaces/interface-item';
-import { ProductService } from '../services/product.service';
 import { FavoriteService } from '../services/favorite.service';
 
 @Component({
@@ -11,7 +10,11 @@ import { FavoriteService } from '../services/favorite.service';
 })
 export class WishListComponent implements OnInit {
 
-  constructor(public _fService: FavoriteService) {}
+  constructor(private _favoriteService: FavoriteService) {}
+
+  public get favoriteItems(): IProductItem[] {
+    return this._favoriteService.favoriteItems;
+  }
 
   public ngOnInit(): void {
   }

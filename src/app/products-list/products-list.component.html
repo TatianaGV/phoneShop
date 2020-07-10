@@ -1,6 +1,6 @@
 <div class="products">
   <div class="product-wrapper">
-    <ng-container *ngFor="let item of _pService.items | async">
+    <ng-container *ngFor="let item of ProductItems | async">
       <app-product-item
         [item]="item">
       </app-product-item>

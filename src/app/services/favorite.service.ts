@@ -15,14 +15,17 @@ import { ProductService } from './product.service';
 
 export class FavoriteService implements OnDestroy {
 
+  public items$: Observable<IProductItem>[] = [];
+
   public favoriteItemsIds: string[] = [];
-  public obsItems: Observable<IProductItem>[] = [];
   public favoriteItems: IProductItem[] = [];
 
   private destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
 
-  constructor(private _pService: ProductService,
-              private firestore: AngularFirestore) {
+  constructor(
+    private _ProductService: ProductService,
+    private _fb: AngularFirestore,
+  ) {
     this._getFavoriteDataFromCash();
     this._loadFavoriteItems();
     this._joinFavoriteItems();
@@ -46,7 +49,7 @@ export class FavoriteService implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.destroy.next(null);
+    this.destroy.next();
     this.destroy.complete();
   }
 
@@ -61,7 +64,7 @@ export class FavoriteService implements OnDestroy {
   private _loadFavoriteItems(): void {
     if (this.favoriteItemsIds) {
       this.favoriteItemsIds.forEach((id) => {
-        const query = this.firestore
+        const query = this._fb
           .collection('items')
           .doc<IProductItem>(id)
           .snapshotChanges()
@@ -72,13 +75,13 @@ export class FavoriteService implements OnDestroy {
             }),
             take(1),
           );
-        this.obsItems.push(query);
+        this.items$.push(query);
       });
     }
   }
 
   private _joinFavoriteItems(): void {
-    forkJoin(this.obsItems)
+    forkJoin(this.items$)
       .pipe(
         map((items) => {
           return items.map((item) => {

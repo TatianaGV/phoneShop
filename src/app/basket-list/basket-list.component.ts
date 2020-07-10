@@ -18,8 +18,8 @@ export class BasketListComponent implements OnInit {
   public customer: ICustomer;
   public numberPattern = '^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$';
 
-  constructor(private _pService: ProductService,
-              public _cService: CartService) {}
+  constructor(private _ProductService: ProductService,
+              private _CartService: CartService) {}
 
   public ngOnInit(): void {
     this.initFrom();
@@ -62,7 +62,11 @@ export class BasketListComponent implements OnInit {
   }
 
   public removeItem(id: string): void {
-    this._cService.deleteItem(id);
+    this._CartService.deleteItem(id);
+  }
+
+  public get CartItems(): IProductItem[] {
+    return this._CartService.cartItems;
   }
 
 }

@@ -12,14 +12,14 @@ import { IProductItem } from '../interfaces/interface-item';
 })
 export class ProductService {
 
-  public items: Observable<IProductItem []>;
+  public items$: Observable<IProductItem []>;
 
   constructor(private firestore: AngularFirestore) {
     this.init();
   }
 
   public init(): void {
-    this.items = this.firestore
+    this.items$ = this.firestore
       .collection<IProductItem>('items')
       .snapshotChanges()
       .pipe(
@@ -28,9 +28,6 @@ export class ProductService {
         }),
         tap((resp) => {
           return this.makeFavoriteItems(resp);
-        }),
-        tap((resp) => {
-          return this.makeCartItems(resp);
         }),
       );
   }

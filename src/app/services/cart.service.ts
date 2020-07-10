@@ -13,17 +13,19 @@ import { ProductService } from './product.service';
   providedIn: 'root',
 })
 
-export class CartService implements OnDestroy{
+export class CartService implements OnDestroy {
 
-  public obsItems: Observable<IProductItem>[] = [];
+  public items$: Observable<IProductItem>[] = [];
+
   public cartItemsIds: string[] = [];
   public cartItems: IProductItem[] = [];
 
   private destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
 
-
-  constructor(private _pService: ProductService,
-              private firestore: AngularFirestore) {
+  constructor(
+    private _ProductService: ProductService,
+    private _fb: AngularFirestore,
+  ) {
     this._getCartDataFromCash();
     this._loadCartItems();
     this._joinCartItems();
@@ -68,7 +70,7 @@ export class CartService implements OnDestroy{
   private _loadCartItems(): void {
     if (this.cartItemsIds) {
       this.cartItemsIds.forEach((id) => {
-        const query = this.firestore
+        const query = this._fb
           .collection('items')
           .doc<IProductItem>(id)
           .snapshotChanges()
@@ -80,13 +82,13 @@ export class CartService implements OnDestroy{
             take(1),
           );
 
-        this.obsItems.push(query);
+        this.items$.push(query);
       });
     }
   }
 
   private _joinCartItems(): void {
-    forkJoin(this.obsItems)
+    forkJoin(this.items$)
       .pipe(
         map((items) => {
           return items.map((item) => {

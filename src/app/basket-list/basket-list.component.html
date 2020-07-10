@@ -1,6 +1,6 @@
 <div class="basket-container">
   <h1>Корзина</h1>
-  <ng-container *ngFor="let item of _cService.cartItems">
+  <ng-container *ngFor="let item of CartItems">
     <app-basket-product-item
       [item]="item"
       (itemRemove)="removeItem($event)">
