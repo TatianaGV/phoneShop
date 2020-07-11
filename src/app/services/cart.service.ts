@@ -9,6 +9,10 @@ import { IProductItem } from '../interfaces/interface-item';
 import { ProductService } from './product.service';
 import { CommonService } from './common.service';
 
+export interface IOrderFromCash {
+  id: string;
+  count: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +24,7 @@ export class CartService implements OnDestroy {
 
   public cartItemsIds: string[] = [];
   public cartItems: IProductItem[] = [];
+  public dataFromCash: IOrderFromCash[] = [];
 
   private destroy: ReplaySubject<any> = new ReplaySubject<any>(1);
 
@@ -36,14 +41,17 @@ export class CartService implements OnDestroy {
   public pushItem(item: IProductItem): void {
     this.cartItemsIds.push(item.id);
     this.cartItems.push(item);
-    this.updateLocalStorage(this.cartItemsIds);
+    const data: IOrderFromCash = { id: item.id, count: item.count };
+    this.dataFromCash.push(data);
+    localStorage.setItem('cart', JSON.stringify(this.dataFromCash));
   }
 
-  public deleteItem(itemId: string): void {
-    const index = this.cartItemsIds.indexOf(itemId);
-    this.cartItemsIds.splice(index, 1);
+  public deleteItem(item: IProductItem): void {
+    const index = this.cartItemsIds.indexOf(item.id);
+    this.cartItemsIds.splice(index, 1); // надо или нет?
     this.cartItems.splice(index, 1);
-    this.updateLocalStorage(this.cartItemsIds);
+    this.dataFromCash.splice(index, 1); // проблема при удалении не по порядку
+    localStorage.setItem('cart', JSON.stringify(this.dataFromCash));
   }
 
   public getCountItemsFromCart(): number {
@@ -52,7 +60,7 @@ export class CartService implements OnDestroy {
 
   public getTotalPriceFromCart(): number {
     return this.cartItems.reduce<number>((sum, current) => {
-      return sum + current.price;
+      return sum + (current.price * current.count);
     }, 0);
   }
 
@@ -66,10 +74,11 @@ export class CartService implements OnDestroy {
   }
 
   private _getCartDataFromCash(): void {
-    this.cartItemsIds = this._CommonService.getDataFromCash('cart');
+    this.dataFromCash = this._CommonService.getDataFromCash('cart');
   }
 
   private _loadCartItems(): void {
+    this._getIds();
     this.items$ = this._CommonService.loadDataFromDb(this.cartItemsIds);
   }
 
@@ -78,6 +87,10 @@ export class CartService implements OnDestroy {
       .pipe(
         map((items) => {
           return items.map((item) => {
+            const data = this.dataFromCash
+              .find((elem) => elem.id === item.id);
+            item.count = data.count;
+
             return item;
           });
         }),
@@ -88,4 +101,9 @@ export class CartService implements OnDestroy {
       });
   }
 
+  private _getIds(): void {
+    for (const item of this.dataFromCash) {
+      this.cartItemsIds.push(item.id);
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { map, tap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IProductItem } from '../interfaces/interface-item';
+import { IOrderFromCash } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,7 @@ export class CommonService {
     return items$;
   }
 
-  public getDataFromCash(key: string): string[] {
+  public getDataFromCash(key: string): any {
     return JSON.parse(localStorage.getItem(key)) || [];
   }
 

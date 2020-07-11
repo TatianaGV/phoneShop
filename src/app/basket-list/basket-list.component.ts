@@ -61,8 +61,8 @@ export class BasketListComponent implements OnInit {
     });
   }
 
-  public removeItem(id: string): void {
-    this._CartService.deleteItem(id);
+  public removeItem(item: IProductItem): void {
+    this._CartService.deleteItem(item);
   }
 
   public get CartItems(): IProductItem[] {

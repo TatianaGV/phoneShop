@@ -43,7 +43,7 @@ export class ModalViewComponent implements OnInit {
         this._fService.deleteItem(this.item.id);
       }
     } else {
-      this._cService.deleteItem(this.item.id);
+      this._cService.deleteItem(this.item);
     }
 
     this.dialogRef.close();
