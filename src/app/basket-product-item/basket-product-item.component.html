@@ -2,7 +2,7 @@
   <img class="img-phone" [src]="item.photo" alt="no phone">
   <div class="info-item">
     <div>{{item.model}}</div>
-    <div>{{item.price}} руб</div>
+    <div>{{item.price * item.count}} руб</div>
   </div>
   <app-control-access [(ngModel)]="item.count"></app-control-access>
   <div class="active">

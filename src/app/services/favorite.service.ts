@@ -56,7 +56,7 @@ export class FavoriteService implements OnDestroy {
   }
 
   public updateLocalStorage(data: string[]): void {
-    localStorage.setItem('cart', JSON.stringify(data));
+    localStorage.setItem('favorite', JSON.stringify(data));
   }
 
   private _getFavoriteDataFromCash(): void {

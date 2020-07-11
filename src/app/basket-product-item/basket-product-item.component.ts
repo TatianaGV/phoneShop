@@ -21,7 +21,7 @@ export class BasketProductItemComponent implements OnInit {
   public ngOnInit(): void {}
 
   public removeItem(): void {
-    this.itemRemove.emit(this.item.id);
+    this.itemRemove.emit(this.item);
   }
 
 

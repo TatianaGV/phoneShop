@@ -5,7 +5,6 @@ import { map, tap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { IProductItem } from '../interfaces/interface-item';
-import { IOrderFromCash } from './cart.service';
 
 @Injectable({
   providedIn: 'root',

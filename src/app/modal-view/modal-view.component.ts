@@ -36,14 +36,16 @@ export class ModalViewComponent implements OnInit {
   }
 
   public addItemToCart(): void {
-    this.item.isCard = !this.item.isCard;
-    if (this.item.isCard) {
+    const item = this._cService.cartItems
+      .find((elem) => elem.id === this.item.id);
+    if (!item) {
       this._cService.pushItem(this.item);
       if (this.item.isFavorite) {
+        this.item.isFavorite = !this.item.isFavorite;
         this._fService.deleteItem(this.item.id);
       }
     } else {
-      this._cService.deleteItem(this.item);
+      alert('Этот товар уже добавлен в корзину');
     }
 
     this.dialogRef.close();

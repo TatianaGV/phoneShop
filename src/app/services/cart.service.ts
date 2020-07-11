@@ -43,19 +43,23 @@ export class CartService implements OnDestroy {
     this.cartItems.push(item);
     const data: IOrderFromCash = { id: item.id, count: item.count };
     this.dataFromCash.push(data);
-    localStorage.setItem('cart', JSON.stringify(this.dataFromCash));
+    this.updateLocalStorage(this.dataFromCash);
   }
 
   public deleteItem(item: IProductItem): void {
-    const index = this.cartItemsIds.indexOf(item.id);
-    this.cartItemsIds.splice(index, 1); // надо или нет?
+    const index = this._findIndex(item);
     this.cartItems.splice(index, 1);
-    this.dataFromCash.splice(index, 1); // проблема при удалении не по порядку
-    localStorage.setItem('cart', JSON.stringify(this.dataFromCash));
+    this.dataFromCash.splice(index, 1);
+    this.updateLocalStorage(this.dataFromCash);
   }
 
   public getCountItemsFromCart(): number {
-    return this.cartItemsIds.length;
+    let count = 0;
+    for (const data of this.cartItems) {
+      count += data.count;
+    }
+
+    return count;
   }
 
   public getTotalPriceFromCart(): number {
@@ -69,7 +73,7 @@ export class CartService implements OnDestroy {
     this.destroy.complete();
   }
 
-  public updateLocalStorage(data: string[]): void {
+  public updateLocalStorage(data: IOrderFromCash[]): void {
     localStorage.setItem('cart', JSON.stringify(data));
   }
 
@@ -106,4 +110,13 @@ export class CartService implements OnDestroy {
       this.cartItemsIds.push(item.id);
     }
   }
+
+  private _findIndex(item: IProductItem): number {
+    for (let i = 0; i < this.dataFromCash.length; i++) {
+      if (this.dataFromCash[i].id === item.id) {
+        return i;
+      }
+    }
+  }
+
 }

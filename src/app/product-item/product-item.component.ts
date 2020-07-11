@@ -2,10 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import { AngularFirestore } from '@angular/fire/firestore';
+
+import { ReplaySubject } from 'rxjs';
 
 import { IProductItem } from '../interfaces/interface-item';
 import { ModalViewComponent } from '../modal-view/modal-view.component';
