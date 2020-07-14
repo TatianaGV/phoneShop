@@ -1,23 +1,31 @@
-.modal-container {
+.mat-dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  h2{
-    text-align: center;
+  .title {
+    margin: 0;
+    font-size: 18px;
   }
 
-  .cart-container{
-    display: flex;
-    align-items: center;
-
-    .img-phone {
-      width: 200px;
-      height: 200px;
-      object-fit: contain;
-    }
-
-    .item {
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-
+  .mat-icon-button {
+    height: 24px;
+    width: 24px;
+    line-height: 24px;
   }
+}
+
+.img-phone {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  float: left;
+  margin-right: 16px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 150px;
 }

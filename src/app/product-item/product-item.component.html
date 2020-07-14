@@ -2,7 +2,7 @@
   <img class="img-phone" [src]="item.photo" alt="no phone">
   <div class="info-item">
       <div>{{item.model}}</div>
-      <div>{{item.price}} руб</div>
+      <div>{{ item.price | currency }}</div>
   </div>
   <div class="active">
     <button mat-button color="primary" (click)="openDialog()">В корзину</button>

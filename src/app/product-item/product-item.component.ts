@@ -37,6 +37,7 @@ export class ProductItemComponent implements OnInit, OnDestroy {
   public openDialog(): void {
     this.dialog.open(ModalViewComponent, {
       width: '500px',
+      height: '250px',
       data: { item: this.item },
     });
   }

@@ -56,7 +56,7 @@ export class CartService implements OnDestroy {
   public getCountItemsFromCart(): number {
     let count = 0;
     for (const data of this.cartItems) {
-      count += data.count;
+      count += +data.count;
     }
 
     return count;

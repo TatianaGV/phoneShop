@@ -1,20 +1,28 @@
-<div class="modal-container">
-  <button mat-icon-button (click)="close()">
+<div class="mat-dialog-title">
+  <h2 class="title">Добавить в корзину</h2>
+  <button mat-icon-button (click)="close()" class="active-btn">
     <mat-icon aria-hidden="false" color="primary" aria-label="Example home icon">close</mat-icon>
   </button>
-  <h2>Добавить в корзину</h2>
-
-  <div class="cart-container">
-    <img class="img-phone" [src]="item.photo" alt="no phone">
-    <div class="info-item">
-      <div class="item">{{ item.model }}</div>
-      <div class="item">Сумма: {{ item.price }} руб</div>
+</div>
+<mat-dialog-content>
+  <img class="img-phone" [src]="item.photo" alt="no phone">
+  <div class="info-item">
+    <div class="info-item-title">{{ item.model }}</div>
+    <div class="info-item-price">
+      <span>Сумма: {{ item.price }} руб</span>
       <app-control-access [(ngModel)]="item.count"></app-control-access>
     </div>
+    <div class="info-item-actions">
+      <button mat-button (click)="addItemToCart()" color="primary">
+        <mat-icon aria-hidden="false" color="primary" aria-label="Example home icon">add_shopping_cart</mat-icon>
+        <span>В корзину</span>
+      </button>
+      <button>
+        <span>Купить</span>
+      </button>
+    </div>
   </div>
+</mat-dialog-content>
 
-  <button mat-icon-button (click)="addItemToCart()">
-    <mat-icon aria-hidden="false" color="primary" aria-label="Example home icon">add_shopping_cart</mat-icon>
-  </button>
-</div>
+
 
